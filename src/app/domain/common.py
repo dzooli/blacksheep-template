@@ -1,49 +1,51 @@
-from dataclasses import dataclass
-
-from _collections_abc import dict_items
-from typing import Any, Optional, List, Union
+from dataclasses import dataclass, field
+from enum import Enum
+from typing import Optional, List, Union
 
 from blacksheep import FromHeader
+
+from .app import ProjectInfo, TokenInfo
+from .internal import Scope
 
 
 class FromRemoteUserHeader(FromHeader[str]):
     name = "Remote-User"
 
 
-@dataclass
-class Scope:
-    def __init__(self, items: dict_items):
-        for k, v in items:
-            setattr(self, k, str(v))
-
-
-@dataclass(slots=True)
-class TokenInfo:
-    """User information example."""
-
-    user: str
-    uid: str
-
-
-@dataclass(slots=True)
-class ProjectInfo:
-    name: str
-    repo_url: str
+class ResponseStatus(Enum):
+    """Common response status strings."""
+    OK: str = "OK"
+    ERROR: str = "ERROR"
+    FAILURE: str = "FAILURE"
 
 
 @dataclass(slots=True)
 class ErrorResponse:
     """Example response.
 
-    Usable for a common response or as an error response.
+    Usable as error response.
     """
 
-    code: int
-    status: str
-    description: Optional[str] = None
-    details: Optional[str] = None
+    code: int = 400
+    status: ResponseStatus = "ERROR"
+    description: Optional[str] = field(init=True, default=None, kw_only=True)
+    details: Optional[str] = field(init=True, default=None, kw_only=True)
 
 
 @dataclass(slots=True)
 class SuccessResponse(ErrorResponse):
-    data: Optional[List[Union[TokenInfo, ProjectInfo]]] = None
+    """Example success response.
+
+    Almost same as ErrorResponse but should be initialized
+    with another status code and has an additional ```data``` field
+    with proper Swagger doc generation.
+    """
+    code: int = field(default=200)
+    status: ResponseStatus = field(default=ResponseStatus.OK)
+    data: Optional[List[Union[TokenInfo, ProjectInfo, Scope]]] = None
+
+
+@dataclass(slots=True)
+class HomeSuccessResponse(SuccessResponse):
+    data: Optional[List[TokenInfo]] = None
+

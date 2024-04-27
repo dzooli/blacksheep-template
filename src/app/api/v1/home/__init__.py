@@ -1,13 +1,12 @@
-from typing import List
+from blacksheep import Request
+from blacksheep.server.controllers import get, post
 
 from app.api.common import BaseAPIController
 from app.domain.common import (
     FromRemoteUserHeader,
     Scope,
-    TokenInfo, SuccessResponse,
+    TokenInfo, SuccessResponse, ResponseStatus, HomeSuccessResponse
 )
-from blacksheep import Request
-from blacksheep.server.controllers import get, post
 
 
 class Home(BaseAPIController):
@@ -21,10 +20,10 @@ class Home(BaseAPIController):
     @get(
         "/",
     )
-    async def get_home(self, user: FromRemoteUserHeader) -> SuccessResponse:
-        return SuccessResponse(code=200, status="OK", description="Everything is fine",
-                               data=[TokenInfo(user.value, "example-UUID")])
+    async def get_home(self, user: FromRemoteUserHeader) -> HomeSuccessResponse:
+        return HomeSuccessResponse(200, ResponseStatus.OK, description="Everything is fine",
+                                   data=[TokenInfo(user.value, "example-UUID")])
 
     @post("/")
-    async def create_home(self, request: Request) -> Scope:
-        return Scope(request.scope.items())
+    async def create_home(self, request: Request) -> SuccessResponse:
+        return SuccessResponse(data=[Scope(request.scope.items())])
