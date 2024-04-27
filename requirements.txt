@@ -1,0 +1,4 @@
+blacksheep
+gunicorn[setproctitle]
+uvicorn
+orjson

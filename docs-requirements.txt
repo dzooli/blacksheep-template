@@ -1,0 +1,8 @@
+pymdown-extensions
+neoteroi-mkdocs
+mkdocs
+mkdocstrings
+mkdocstrings-python
+mkdocs-material-extensions
+mkdocs-autorefs
+mkdocs-material

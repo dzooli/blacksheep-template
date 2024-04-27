@@ -1,0 +1,111 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "Example",
+        "version": "0.1.0"
+    },
+    "paths": {
+        "/api/v1/home": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "nullable": false,
+                                    "items": {
+                                        "$ref": "#/components/schemas/HomeResponse"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Home"
+                ],
+                "operationId": "get_home",
+                "parameters": [
+                    {
+                        "name": "Remote-User",
+                        "in": "header",
+                        "schema": {
+                            "type": "string",
+                            "nullable": false
+                        },
+                        "description": ""
+                    }
+                ]
+            },
+            "post": {
+                "responses": {},
+                "tags": [
+                    "Home"
+                ],
+                "operationId": "create_homes",
+                "parameters": []
+            }
+        }
+    },
+    "servers": [],
+    "components": {
+        "schemas": {
+            "TokenInfo": {
+                "type": "object",
+                "required": [
+                    "user",
+                    "uid"
+                ],
+                "properties": {
+                    "user": {
+                        "type": "string",
+                        "nullable": false
+                    },
+                    "uid": {
+                        "type": "string",
+                        "nullable": false
+                    }
+                }
+            },
+            "ResponseResult": {
+                "type": "object",
+                "required": [
+                    "status",
+                    "error_msg"
+                ],
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "nullable": false
+                    },
+                    "error_msg": {
+                        "type": "string",
+                        "nullable": false
+                    }
+                }
+            },
+            "HomeResponse": {
+                "type": "object",
+                "required": [
+                    "token_info",
+                    "result"
+                ],
+                "properties": {
+                    "token_info": {
+                        "$ref": "#/components/schemas/TokenInfo"
+                    },
+                    "result": {
+                        "$ref": "#/components/schemas/ResponseResult"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Home"
+        }
+    ]
+}

@@ -1,0 +1,16 @@
+blacksheep-cli
+black[d]
+mypy
+mypy-extensions
+djlint
+hatch
+pytest
+pytest-env
+pytest-cov
+pytest-docgen
+pytest-mock
+pytest-only
+pytest-pep8
+pytest-pycodestyle
+pytest-vscodedebug
+pytest-vscode-pycharm-cls

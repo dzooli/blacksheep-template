@@ -1,0 +1,28 @@
+site_name: Blacksheep API template
+site_author: Zoltan Fabian
+site_dir: ../build/docs/backend
+theme: 
+  name: mkdocs
+  highlightjs: true
+
+nav:
+  - Home: 'index.md'
+  - Domain: 'domain.md'
+  - REST API: 'api.md'
+  - Python API: 'python_api.md'
+
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: "#"
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+plugins: 
+  - search
+  - mkdocstrings
+  - autorefs
+  - neoteroi.mkdocsoad:
+      use_pymdownx: true
+

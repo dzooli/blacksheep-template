@@ -1,0 +1,133 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "backend"
+dynamic = ["version"]
+description = 'A template for Blacksheep framework-based API backends.'
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+keywords = ["backend", "blacksheep", "template", "api", "rest"]
+authors = [{ name = "Zoltan Fabian", email = "zoltan.dzooli.fabian@gmail.com" }]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = ["blacksheep", "gunicorn[setproctitle]", "uvicorn", "orjson"]
+
+[project.urls]
+Documentation = "https://github.com/unknown/temporary#readme"
+Issues = "https://github.com/unknown/temporary/issues"
+Source = "https://github.com/unknown/temporary"
+
+[tool.hatch.version]
+path = "src/app/__about__.py"
+
+[tool.hatch.envs.default]
+dependencies = [
+  "black[d]",
+  "mypy",
+  "mypy-extensions",
+  "djlint",
+  "coverage[toml]>=6.5",
+  "pytest",
+  "pytest-docgen",
+  "pytest-mock",
+  "pytest-benchmark",
+  "pytest-env",
+  "pytest-only",
+  "pytest-pep8",
+  "pytest-pycodestyle",
+  "pytest-vscodedebug",
+  "pytest-vscode-pycharm-cls",
+  "blacksheep-cli",
+]
+
+[tool.hatch.envs.default.scripts]
+serve = "cd src ; APP_ENV=dev python3 -m app.server"
+test = "PYTHONPATH=$PYTHONPATH:./src pytest {args} src/tests"
+test-cov = "PYTHONPATH=$PYTHONPATH:./src coverage run -m pytest {args} src/tests"
+cov-report = [
+  "- coverage combine",
+  "coverage report",
+  "coverage lcov -o lcov.info",
+  "coverage xml -o coverage.xml",
+]
+cov = ["test-cov", "cov-report"]
+
+[tool.hatch.envs.doc]
+dependencies = [
+  "pymdown-extensions",
+  "neoteroi-mkdocs",
+  "mkdocs",
+  "mkdocstrings",
+  "mkdocstrings-python",
+  "mkdocs-material-extensions",
+  "mkdocs-autorefs",
+  "mkdocs-material",
+]
+[tool.hatch.envs.doc.scripts]
+serve = "cd src; mkdocs serve -w app -w docs -v -f mkdocs.yml -a 127.0.0.1:8090"
+build = "cd src; mkdocs build"
+
+[tool.hatch.envs.types]
+dependencies = ["mypy>=1.0.0"]
+
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive {args:src/app}"
+
+[tool.hatch.build]
+skip-excluded-dirs = true
+directory = "build/dist"
+dev-mode-dirs = ["src"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/app"]
+require-runtime-dependencies = true
+
+[[tool.hatch.envs.all.matrix]]
+python = ["3.8", "3.9", "3.10", "3.11", "3.12"]
+
+[tool.mypy]
+exclude = ["venv", "tests"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+addopts = "-ra -q"
+
+[tool.coverage.run]
+source_pkgs = ["app"]
+branch = true
+parallel = true
+omit = ["src/__about__.py", "src/tests"]
+
+[tool.coverage.paths]
+backend = ["*/src/app/"]
+tests = ["*/src/tests"]
+
+[tool.coverage.report]
+exclude_lines = ["no cov", "if __name__ == .__main__.:", "if TYPE_CHECKING:"]
+
+[tool.ruff.format]
+preview = true
+quote-style = "double"
+
+[tool.ruff.lint]
+preview = true
+extend-select = ["C901"]
+
+[tool.ruff.lint.extend-per-file-ignores]
+"docs/.hooks/*" = ["INP001", "T201"]
+"src/app/*.py" = ["F401", "PLC0415", "FA100"]
+
+[tool.ruff.lint.isort]
+known-first-party = []
