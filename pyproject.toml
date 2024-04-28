@@ -12,15 +12,15 @@ license = "MIT"
 keywords = ["backend", "blacksheep", "template", "api", "rest"]
 authors = [{ name = "Zoltan Fabian", email = "zoltan.dzooli.fabian@gmail.com" }]
 classifiers = [
-  "Development Status :: 4 - Beta",
-  "Programming Language :: Python",
-  "Programming Language :: Python :: 3.8",
-  "Programming Language :: Python :: 3.9",
-  "Programming Language :: Python :: 3.10",
-  "Programming Language :: Python :: 3.11",
-  "Programming Language :: Python :: 3.12",
-  "Programming Language :: Python :: Implementation :: CPython",
-  "Programming Language :: Python :: Implementation :: PyPy",
+    "Development Status :: 4 - Beta",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
 ]
 dependencies = ["blacksheep", "gunicorn[setproctitle]", "uvicorn", "orjson"]
 
@@ -34,22 +34,22 @@ path = "src/app/__about__.py"
 
 [tool.hatch.envs.default]
 dependencies = [
-  "black[d]",
-  "mypy",
-  "mypy-extensions",
-  "djlint",
-  "coverage[toml]>=6.5",
-  "pytest",
-  "pytest-docgen",
-  "pytest-mock",
-  "pytest-benchmark",
-  "pytest-env",
-  "pytest-only",
-  "pytest-pep8",
-  "pytest-pycodestyle",
-  "pytest-vscodedebug",
-  "pytest-vscode-pycharm-cls",
-  "blacksheep-cli",
+    "black[d]",
+    "mypy",
+    "mypy-extensions",
+    "djlint",
+    "coverage[toml]>=6.5",
+    "pytest",
+    "pytest-docgen",
+    "pytest-mock",
+    "pytest-benchmark",
+    "pytest-env",
+    "pytest-only",
+    "pytest-pep8",
+    "pytest-pycodestyle",
+    "pytest-vscodedebug",
+    "pytest-vscode-pycharm-cls",
+    "blacksheep-cli",
 ]
 
 [tool.hatch.envs.default.scripts]
@@ -57,23 +57,23 @@ serve = "cd src ; APP_ENV=dev python3 -m app.server"
 test = "PYTHONPATH=$PYTHONPATH:./src pytest {args} src/tests"
 test-cov = "PYTHONPATH=$PYTHONPATH:./src coverage run -m pytest {args} src/tests"
 cov-report = [
-  "- coverage combine",
-  "coverage report",
-  "coverage lcov -o lcov.info",
-  "coverage xml -o coverage.xml",
+    "- coverage combine",
+    "coverage report",
+    "coverage lcov -o lcov.info",
+    "coverage xml -o coverage.xml",
 ]
 cov = ["test-cov", "cov-report"]
 
 [tool.hatch.envs.doc]
 dependencies = [
-  "pymdown-extensions",
-  "neoteroi-mkdocs",
-  "mkdocs",
-  "mkdocstrings",
-  "mkdocstrings-python",
-  "mkdocs-material-extensions",
-  "mkdocs-autorefs",
-  "mkdocs-material",
+    "pymdown-extensions",
+    "neoteroi-mkdocs",
+    "mkdocs",
+    "mkdocstrings",
+    "mkdocstrings-python",
+    "mkdocs-material-extensions",
+    "mkdocs-autorefs",
+    "mkdocs-material",
 ]
 [tool.hatch.envs.doc.scripts]
 serve = "cd src; mkdocs serve -w app -w docs -v -f mkdocs.yml -a 127.0.0.1:8090"
