@@ -1,8 +1,13 @@
 {
     "openapi": "3.0.3",
     "info": {
-        "title": "Example",
-        "version": "0.1.0"
+        "title": "Blacksheep API Template",
+        "version": "0.1.0",
+        "description": "A template for API servers using Blacksheep framework.",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/license/MIT"
+        }
     },
     "paths": {
         "/api/v1/home": {
@@ -13,11 +18,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "array",
-                                    "nullable": false,
-                                    "items": {
-                                        "$ref": "#/components/schemas/HomeResponse"
-                                    }
+                                    "$ref": "#/components/schemas/HomeSuccessResponse"
                                 }
                             }
                         }
@@ -35,16 +36,28 @@
                             "type": "string",
                             "nullable": false
                         },
-                        "description": ""
+                        "description": "",
+                        "required": true
                     }
                 ]
             },
             "post": {
-                "responses": {},
+                "responses": {
+                    "200": {
+                        "description": "Success response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SuccessResponse"
+                                }
+                            }
+                        }
+                    }
+                },
                 "tags": [
                     "Home"
                 ],
-                "operationId": "create_homes",
+                "operationId": "create_home",
                 "parameters": []
             }
         }
@@ -69,35 +82,114 @@
                     }
                 }
             },
-            "ResponseResult": {
+            "HomeSuccessResponse": {
                 "type": "object",
                 "required": [
-                    "status",
-                    "error_msg"
+                    "code",
+                    "status"
                 ],
                 "properties": {
+                    "code": {
+                        "type": "integer",
+                        "format": "int64",
+                        "nullable": false
+                    },
                     "status": {
+                        "type": "string",
+                        "nullable": false,
+                        "enum": [
+                            "OK",
+                            "ERROR",
+                            "FAILURE"
+                        ]
+                    },
+                    "description": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "details": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "data": {
+                        "type": "array",
+                        "nullable": true,
+                        "items": {
+                            "$ref": "#/components/schemas/TokenInfo"
+                        }
+                    }
+                }
+            },
+            "ProjectInfo": {
+                "type": "object",
+                "required": [
+                    "name",
+                    "repo_url"
+                ],
+                "properties": {
+                    "name": {
                         "type": "string",
                         "nullable": false
                     },
-                    "error_msg": {
+                    "repo_url": {
                         "type": "string",
                         "nullable": false
                     }
                 }
             },
-            "HomeResponse": {
+            "Scope": {
                 "type": "object",
-                "required": [
-                    "token_info",
-                    "result"
-                ],
-                "properties": {
-                    "token_info": {
+                "properties": {}
+            },
+            "UnionOfTokenInfoAndProjectInfoAndScope": {
+                "type": "object",
+                "anyOf": [
+                    {
                         "$ref": "#/components/schemas/TokenInfo"
                     },
-                    "result": {
-                        "$ref": "#/components/schemas/ResponseResult"
+                    {
+                        "$ref": "#/components/schemas/ProjectInfo"
+                    },
+                    {
+                        "$ref": "#/components/schemas/Scope"
+                    }
+                ]
+            },
+            "SuccessResponse": {
+                "type": "object",
+                "required": [
+                    "code",
+                    "status"
+                ],
+                "properties": {
+                    "code": {
+                        "type": "integer",
+                        "format": "int64",
+                        "nullable": false
+                    },
+                    "status": {
+                        "type": "string",
+                        "nullable": false,
+                        "enum": [
+                            "OK",
+                            "ERROR",
+                            "FAILURE"
+                        ]
+                    },
+                    "description": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "details": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "data": {
+                        "type": "array",
+                        "nullable": true,
+                        "items": {
+                            "$ref": "#/components/schemas/UnionOfTokenInfoAndProjectInfoAndScope"
+                        }
                     }
                 }
             }
