@@ -22,18 +22,18 @@ A template for Blacksheep-based API with the following features:
 
 ## Usage
 
-With ```hatch```:
+Even if using this template is possible with regular pip+virtualenv tool combination I kindly recommend to use ```hatch``` as a more powerful package and task management tool.
+
+Once ```hatch``` is installed on your Linux (physical, WSL, Docker or VM) environment using this template is very simple. The main tasks are included into ```pyproject.toml``` so you only need the required command to perform these tasks:
 
 - Start dev server
     ```shell
     hatch run serve
     ```
-
 - Run tests
     ```shell
     hatch run test
     ```
-
 - Run tests with coverage measurement
     ```shell
     hatch run test-cov
