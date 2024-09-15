@@ -16,6 +16,7 @@ from typing import (
 )
 
 import orjson
+from app import __about__
 from blacksheep import Application, json
 from blacksheep.messages import Request, Response
 from blacksheep.server.normalization import ensure_response
@@ -24,8 +25,6 @@ from blacksheep.server.rendering.jinja2 import JinjaRenderer
 from blacksheep.settings.html import html_settings
 from blacksheep.settings.json import json_settings
 from openapidocs.v3 import Info, License
-
-from app import __about__
 
 
 class BaseApplication(Application):
