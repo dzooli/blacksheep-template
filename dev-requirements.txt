@@ -5,9 +5,10 @@ mypy-extensions
 djlint
 hatch
 pytest
+jinja2
+setuptools
 pytest-env
 pytest-cov
-pytest-docgen
 pytest-mock
 pytest-only
 pytest-pep8

@@ -27,7 +27,7 @@ dependencies = ["blacksheep", "gunicorn[setproctitle]", "uvicorn", "orjson"]
 [project.urls]
 Documentation = "https://github.com/unknown/temporary#readme"
 Issues = "https://github.com/unknown/temporary/issues"
-Source = "https://github.com/unknown/temporary"
+Source = "https://github.com/dzooli/blacksheep-template"
 
 [tool.hatch.version]
 path = "src/app/__about__.py"
@@ -38,9 +38,21 @@ dependencies = [
     "mypy",
     "mypy-extensions",
     "djlint",
+    "blacksheep-cli",
+    "jinja2",
+    "setuptools",
+]
+
+[tool.hatch.envs.default.scripts]
+serve = "cd src ; APP_ENV=dev python -m app.server"
+
+[tool.hatch.envs.test]
+dependencies = [
+    "jinja2",
+    "blacksheep-cli",
+    "setuptools",
     "coverage[toml]>=6.5",
     "pytest",
-    "pytest-docgen",
     "pytest-mock",
     "pytest-benchmark",
     "pytest-env",
@@ -49,11 +61,9 @@ dependencies = [
     "pytest-pycodestyle",
     "pytest-vscodedebug",
     "pytest-vscode-pycharm-cls",
-    "blacksheep-cli",
 ]
 
-[tool.hatch.envs.default.scripts]
-serve = "cd src ; APP_ENV=dev python3 -m app.server"
+[tool.hatch.envs.test.scripts]
 test = "PYTHONPATH=$PYTHONPATH:./src pytest {args} src/tests"
 test-cov = "PYTHONPATH=$PYTHONPATH:./src coverage run -m pytest {args} src/tests"
 cov-report = [

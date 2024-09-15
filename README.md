@@ -32,15 +32,15 @@ Once ```hatch``` is installed on your Linux (physical, WSL, Docker or VM) enviro
     ```
 - Run tests
     ```shell
-    hatch run test
+    hatch run test:test
     ```
 - Run tests with coverage measurement
     ```shell
-    hatch run test-cov
+    hatch run test:test-cov
     ```
 - Generate coverage report (lcov and xml, usable with coverage-gutters VSCode extension)
     ```shell
-    hatch run cov
+    hatch run test:cov
     ```
 - Doc development with live reload
     ```shell
