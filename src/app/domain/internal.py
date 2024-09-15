@@ -1,5 +1,7 @@
 from _collections_abc import dict_items
 from dataclasses import dataclass
+
+
 @dataclass
 class Scope:
     def __init__(self, items: dict_items):

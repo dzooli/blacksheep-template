@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Optional, List, Union
+from typing import List, Optional, Union
 
 from blacksheep import FromHeader
 
@@ -48,4 +48,3 @@ class SuccessResponse(ErrorResponse):
 @dataclass(slots=True)
 class HomeSuccessResponse(SuccessResponse):
     data: Optional[List[TokenInfo]] = None
-
